@@ -1,0 +1,7 @@
+{
+  "place": "none",
+  "focusable": true,
+  "link_handlers": [
+    { "kind": "file", "pattern": "(?i)\\.(png|jpe?g|gif|webp|bmp|tiff?|avif|heic)(:\\d+)*$" }
+  ]
+}

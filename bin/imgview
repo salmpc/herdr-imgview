@@ -1,0 +1,11 @@
+#!/bin/sh
+# imgview FILE: open FILE in the Herdr app's imgview pane, to the right of this terminal.
+# Works in any Herdr terminal, on this computer or on a machine Herdr is connected to:
+# it labels this terminal, and the imgview-watch mod in the app opens the file.
+[ $# -eq 1 ] || { echo "usage: imgview FILE" >&2; exit 2; }
+[ -n "$HC_TERMINAL_ID" ] || { echo "imgview: not in a Herdr app terminal (HC_TERMINAL_ID is unset)" >&2; exit 1; }
+[ -f "$1" ] || { echo "imgview: no such file: $1" >&2; exit 1; }
+case $1 in /*) f=$1 ;; *) f=$(pwd)/$1 ;; esac
+HC=$(command -v hc || echo "$HOME/.local/bin/hc")
+"$HC" label "$HC_TERMINAL_ID" "imgview.open=$(date +%s)|$f" >/dev/null || exit 1
+echo "Opened $(basename "$f") beside this terminal."
